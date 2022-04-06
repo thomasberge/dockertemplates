@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+
+  nginx:
+    build: ./nginx/
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - frontend
+      - backend
+
+  api:
+    build: ./api/
+    restart: always
+    environment:
+      - APP_SECRET_KEY=insert_key_here test
+    volumes:
+      - ./files:/code/files
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
